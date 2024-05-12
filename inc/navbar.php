@@ -76,8 +76,7 @@
                         <a class="button is-primary is-rounded">
                             Mi cuenta
                         </a>
-                        <a class="button is-light is-link is-rounded">
-                            
+                        <a class="button is-light is-link is-rounded" href="index.php?view=logout">
                         Salir
                         </a>
                     </div>
