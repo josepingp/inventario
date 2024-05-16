@@ -18,6 +18,14 @@
         is_file("./views/" . $_GET['view'] . ".php")
         && $_GET['view'] != 'login' && $_GET['view'] != '404'
     ) {
+
+        //Cerrar sision forzada si no hay login
+        if ( (!isset($_SESSION['id']) || $_SESSION['id'] == '') || (!isset($_SESSION['user_user']) || $_SESSION['user_user']== '')) {
+            require'./views/logout.php';
+            exit();
+        }
+
+
         include "./inc/navbar.php";
         
         include "./views/" . $_GET['view'] . ".php";

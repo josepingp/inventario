@@ -1,6 +1,6 @@
 <div class="container is-fluid"> 
     <h1 class="title">Home</h1>
-    <h2 class="subtitle">¡Bienvenido usuario!</h2>
+    <h2 class="subtitle">¡Bienvenido <?php echo $_SESSION['user_user']; ?>!</h2>
 </div>
 
 <br>
