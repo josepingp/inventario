@@ -4,9 +4,9 @@ $init = ($page > 0) ? (($regs * $page) - $regs) : 0;
 $table = "";
 
 if (isset($search) && $search != '') {
-    $dataQuery = "SELECT * FROM user WHERE user_id != ( ('" . $_SESSION['id'] . "') AND (user_name LIKE '%$search%' OR user_last_name LIKE '%$search%' OR user_user LIKE '%$search%' OR user_email LIKE '%$search%') ) ORDER BY user_name ASC LIMIT  $init, $regs ;";
+    $dataQuery = "SELECT * FROM user WHERE ((user_id !=  '" . $_SESSION['id'] . "') AND (user_name LIKE '%$search%' OR user_last_name LIKE '%$search%' OR user_user LIKE '%$search%' OR user_email LIKE '%$search%')) ORDER BY user_name ASC LIMIT  $init, $regs ;";
 
-    $totalQuery = "SELECT count(user_id) FROM user WHERE user_id != ( ('" . $_SESSION['id'] . "') AND (user_name LIKE '%$search%' OR user_last_name LIKE '%$search%' OR user_user LIKE '%$search%' OR user_email LIKE '%$search%') );";
+    $totalQuery = "SELECT count(user_id) FROM user WHERE  ((user_id != '" . $_SESSION['id'] . "') AND (user_name LIKE '%$search%' OR user_last_name LIKE '%$search%' OR user_user LIKE '%$search%' OR user_email LIKE '%$search%') );";
 } else {
     $dataQuery = "SELECT * FROM user WHERE user_id != '" . $_SESSION['id'] . "'  ORDER BY user_name ASC LIMIT  $init, $regs ;";
 
@@ -90,10 +90,10 @@ $table .= '
     </div>
 ';
 
-if ($total >= 1 && $nPages >= $page) {
+if ($total >= 1 && $page <= $nPages  ) {
     $table .= '
     <p class="has-text-right">
-        Mostrando usuarios <strong>' . $pagInit . '</strong> al <strong>' . $pagEnd . '</strong> de un <strong>total de' . $nPages . '</strong>
+        Mostrando usuarios <strong>' . $pagInit . '</strong> al <strong>' . $pagEnd . '</strong> de un <strong>total de ' . $nPages . '</strong>
     </p>
             ';
 }

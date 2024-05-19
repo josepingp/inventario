@@ -9,6 +9,12 @@
     <?php
     require_once "./php/main.php";
 
+    //ELIMINIUAR USUARIOS
+    if(isset($_GET['user_id_del'])) {
+        require_once "./php/user_delete.php";
+    }
+
+
     if (!isset($_GET['page'])) {
         $page = 1;
     } else {
