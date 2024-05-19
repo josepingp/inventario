@@ -40,20 +40,20 @@
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item">
+                        <a class="navbar-item" href="index.php?view=category_new">
                             Nueva
                         </a>
-                        <a class="navbar-item">
+                        <a class="navbar-item" href="index.php?view=category_list">
                             Lista
                         </a>
-                        <a class="navbar-item">
+                        <a class="navbar-item" href="index.php?view=category_search">
                             Buscar
                         </a>
                         
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
+                    <a class="navbar-link" >
                         Productos
                     </a>
 
@@ -73,7 +73,7 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-primary is-rounded">
+                        <a class="button is-primary is-rounded" href="index.php?view=user_update&user_id_up=<?php echo $_SESSION['id'] ?>">
                             Mi cuenta
                         </a>
                         <a class="button is-light is-link is-rounded" href="index.php?view=logout">

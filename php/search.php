@@ -47,7 +47,7 @@ if (in_array($searchModule, $modules)) {
 
     //ELIMINAR LA BUSQUEDA
     if (isset($_POST["delete_search"])) {
-        unset($_SESSION['user_search']);
+        unset($_SESSION[$searchModule]);
     }
 
 } else {
