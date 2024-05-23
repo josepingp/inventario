@@ -1,8 +1,28 @@
 <?php
-
 require_once "main.php";
 
-#almaenando datos
+$id = stringCleaner($_POST["category_id"]);
+
+//VERIFICANDO CATEGOÍA
+
+$categoryCheck = conexion();
+$categoryCheck = $categoryCheck->query("SELECT * FROM category where category_id = '$id'");
+
+if ($categoryCheck->rowCount() <= 0) {
+    echo '
+        <div class="notification is-danger is-light mb-6 mt-6">
+            <strong>¡Ocurrio un error inesperado!</strong><br>
+            La categoría no existe en el sistema.
+        </div>
+    ';
+    exit();
+} else {
+    $data = $categoryCheck->fetch();
+}
+
+$categoryCheck = null;
+
+//ALMACENANDO DATOS
 $categoryName = stringCleaner($_POST["category_name"]);
 $categoryLocation = stringCleaner($_POST["category_location"]);
 
@@ -41,49 +61,49 @@ if ($_POST['category_location'] != '') {
 }
 
 //VERIFICANDO QUE NO EXISTA EL NOMBRE EN LA BD
-$checkName = conexion();
-$checkName = $checkName->query("SELECT category_name FROM category WHERE category_name = '$categoryName'");
-
-if ($checkName->rowCount() > 0) {
-    echo '
+if ($categoryName != $data['category_name']) {
+    $checkName = conexion();
+    $checkName = $checkName->query("SELECT category_name FROM category WHERE category_name = '$categoryName'");
+    
+    if ($checkName->rowCount() > 0) {
+        echo '
         <div class="notification is-danger is-light">
-            <strong>¡Ocurrio un error inesperado!</strong><br>
-            La CATEGORÍA ya existe en la base de datos.    
+        <strong>¡Ocurrio un error inesperado!</strong><br>
+        La CATEGORÍA ya existe en la base de datos.    
         </div>
-    ';
-    exit();
+        ';
+        exit();
+    }
+    $checkName = null;
 }
-$checkUser = null;
 
 //Guardando datos en la base de datos
-$categorySave = conexion();
-//Esta seria la query normal
-//$userSave = $userSave->query("INSERT INTO user(user_name, user_last_name, user_user, user_key, user_email) VALUES ('$userName', '$userLastName', '$userUser', '$userKey', '$userEmail')");
+$categoryUpdate = conexion();
 
-//Esta seria preparar la query pero no ejecutarla, mejor para que no nos puedan inyectar codigo
-$categorySave = $categorySave->prepare("INSERT INTO category(category_name, category_location) VALUES (:name, :location)");//en ved de colocar variables colocas marcadores usando los :
+$categoryUpdate = $categoryUpdate->prepare("UPDATE category SET category_name = :name, category_location = :location WHERE category_id = :id");//en ved de colocar variables colocas marcadores usando los :
 
 //Declaramos un array con los marcadores
 $markers = [
     ":name" => $categoryName,
-    ":location" => $categoryLocation
+    ":location" => $categoryLocation,
+    ":id" => $id
 ];
 
-$categorySave->execute($markers);
+$categoryUpdate->execute($markers);
 
-if ($categorySave->rowCount() == 1) {
+if ($categoryUpdate->rowCount() == 1) {
     echo '
         <div class="notification is-info is-light">
-            <strong>¡Categoría Registrada!</strong><br>
-            Categoría registrada con éxito.
+            <strong>¡Categoría Actualizada!</strong><br>
+            Categoría actualizada con éxito.
         </div>
     ';
 } else {
     echo '
         <div class="notification is-danger is-light">
             <strong>¡Ocurrio un error inesperado!</strong><br>
-            No se pudo registrar la categoría, por favor intentelo de nuevo.    
+            No se pudo actualizar la categoría, por favor intentelo de nuevo.    
         </div>
     ';
 }
-$categorySave = null;
+$categoryUpdate = null;

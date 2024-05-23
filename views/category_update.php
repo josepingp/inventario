@@ -1,1 +1,59 @@
-actualizar categoria
+<?php
+require_once './php/main.php';
+
+$id = (isset($_GET['category_id_up'])) ? $_GET['category_id_up'] : 0;
+$id = stringCleaner($id);
+?>
+
+<div class="container is-fluid mb-6">
+    <h1 class="title">Categorías</h1>
+    <h2 class="subtitle">Actualizar categoría</h2>
+</div>
+
+<div class="container pb-6 pt-6">
+
+<?php
+    
+    require_once './inc/back_btn.php';
+
+    $categoryCheck = conexion();
+    $categoryCheck = $categoryCheck->query("SELECT * FROM category WHERE category_id = '$id';");
+    
+
+    if ($categoryCheck->rowCount() > 0) {
+        $data = $categoryCheck->fetch();
+    ?>
+
+<div class="form-rest mb-6 mt-6"></div>
+    <form action="./php/category_update.php" method="POST" class="ajax_form" autocomplete="off">
+
+        <input type="hidden" name="category_id" value="<?php echo $data['category_id'] ?>" required>
+
+        <div class="columns">
+            <div class="column">
+                <div class="control">
+                    <label>Nombre</label>
+                    <input class="input" type="text" name="category_name" value="<?php echo $data['category_name'] ?>" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{4,50}"
+                        maxlength="50" required>
+                </div>
+            </div>
+            <div class="column">
+                <div class="control">
+                    <label>Ubicación</label>
+                    <input class="input" type="text" name="category_location" value="<?php echo $data['category_location'] ?>"
+                        pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{5,150}" maxlength="150">
+                </div>
+            </div>
+        </div>
+        <p class="has-text-centered">
+            <button type="submit" class="button is-success is-rounded">Actualizar</button>
+        </p>
+    </form>
+
+    <?php
+    } else {
+        include_once "./inc/error_banner.php";
+    }
+    ?>
+
+</div>

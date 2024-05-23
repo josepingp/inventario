@@ -9,10 +9,9 @@
     require_once "./php/main.php";
 
     //ELIMINIUAR CATEGORIAS
-    // if(isset($_GET['category_id_del'])) {
-    //     require_once "./php/category_delete.php";
-    // }
-    
+    if(isset($_GET['category_id_del'])) {
+        require_once "./php/category_delete.php";
+    }
 
     if (!isset($_GET['page'])) {
         $page = 1;

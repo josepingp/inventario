@@ -1,7 +1,6 @@
 <?php
 
 require_once "./main.php";
-
 #almaenando datos
 $userName = stringCleaner($_POST["user_name"]);
 $userLastName = stringCleaner($_POST["user_last_name"]);

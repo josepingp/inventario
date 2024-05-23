@@ -1,7 +1,7 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a href="index.php?view=home" class="navbar-item">    
-                <img src="./assets/img/logo-sin-fondo.png" alt="logo" width="40" >
+                <img src="./img/logo-sin-fondo.png" alt="logo" width="40" >
             </a>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
@@ -58,14 +58,16 @@
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item"> Nuevo </a>
-                        <a class="navbar-item">
+                        <a class="navbar-item" href="index.php?view=product_new"> Nuevo </a>
+                        <a class="navbar-item" href="index.php?view=product_list">
                             Lista
                         </a>
-                        <a class="navbar-item">
+                        <a class="navbar-item" href="index.php?view=product_category">
+                            Por Categorías
+                        </a>
+                        <a class="navbar-item" href="index.php?view=product_search">
                             Buscar
                         </a>
-                        
                     </div>
                 </div>
             </div>
